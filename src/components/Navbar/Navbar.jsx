@@ -7,7 +7,9 @@ export default function Navbar() {
       <Link to="/">
         <img src="/imgs/logo.png" alt="Logo" />
       </Link>
-      <button className="btn btn-primary">Ingresar</button>
+      <Link to="/login">
+        <button className="btn btn-primary">Ingresar</button>
+      </Link>
     </div>
   );
 }

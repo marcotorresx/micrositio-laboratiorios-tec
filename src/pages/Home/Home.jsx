@@ -14,7 +14,7 @@ export default function Home() {
 
       {/* Category */}
       <div className="category">
-        <select class="form-select">
+        <select className="form-select">
           <option value="1">Cat 1</option>
         </select>
         <Link to="/category/1">
