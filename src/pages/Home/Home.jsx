@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Home.sass";
 
 export default function Home() {
@@ -16,7 +17,9 @@ export default function Home() {
         <select class="form-select">
           <option value="1">Cat 1</option>
         </select>
-        <button className="btn btn-outline-primary">Buscar</button>
+        <Link to="/category/1">
+          <button className="btn btn-outline-primary">Buscar</button>
+        </Link>
       </div>
     </div>
   );
