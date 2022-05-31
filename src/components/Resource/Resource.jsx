@@ -4,7 +4,12 @@ export default function Resource() {
   return (
     <div className="resource">
       {/* Title */}
-      <h1>Sierra de Madera</h1>
+      <div className="top">
+        <h1>Sierra de Madera</h1>
+        <button className="btn btn-sm btn-outline-primary">
+          Editar Recurso
+        </button>
+      </div>
 
       {/* Description */}
       <p className="description">

@@ -6,12 +6,12 @@ export default function Login() {
       <h1>Ingresar</h1>
 
       <form>
-        <label for="password" class="form-label">
+        <label for="password" className="form-label">
           Contraseña
         </label>
         <input
           type="password"
-          class="form-control"
+          className="form-control"
           id="password"
           placeholder="Ingresa la contraseña..."
         />

@@ -1,13 +1,8 @@
 import React from "react";
 import Resource from "components/Resource/Resource";
-import { Context } from "Context";
 import "./Category.sass";
 
 export default function Category() {
-  const { hello } = React.useContext(Context);
-
-  console.log(hello);
-
   return (
     <div className="category">
       {/* Title */}
@@ -19,6 +14,9 @@ export default function Category() {
         <Resource />
         <Resource />
       </div>
+
+      {/* Delete Btn */}
+      <button className="btn btn-danger mt-2">Eliminar Categoría</button>
     </div>
   );
 }
