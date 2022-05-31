@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import { Context } from "Context";
+import { Context } from "context/Context";
 
 export default function PrivateRoute() {
   // Get isAdmin
