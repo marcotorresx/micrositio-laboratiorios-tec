@@ -20,7 +20,7 @@ export default function GenericModal({
             type="button"
             onClick={() => onContinue()}
           >
-            Continue
+            Continuar
           </button>
           <button
             className="btn btn-sm btn-outline-danger mx-2"
@@ -28,7 +28,7 @@ export default function GenericModal({
             color="error"
             onClick={() => onCancel()}
           >
-            Cancel
+            Cancelar
           </button>
         </div>
       </div>

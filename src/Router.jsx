@@ -12,7 +12,7 @@ export default function Router() {
       {/* Public Routes */}
       <Route path="" element={<Home />} />
       <Route path="login" element={<Login />} />
-      <Route path="category/:id" element={<Category />} />
+      <Route path="category" element={<Category />} />
 
       {/* Private Routes */}
       <Route path="private" element={<PrivateRoute />}>

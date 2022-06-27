@@ -5,7 +5,7 @@ import "./Home.sass";
 
 export default function Home() {
   // Variables
-  const { categories } = useAppContext();
+  const { categories, setCategoryOnView } = useAppContext();
   const [selectedCategory, setSelectedCategory] = React.useState("");
 
   // Tools
@@ -14,7 +14,8 @@ export default function Home() {
   // Go to category
   function goToCategory() {
     if (selectedCategory === "" || selectedCategory === null) return;
-    navigate(`/category/${selectedCategory}`);
+    setCategoryOnView(JSON.parse(selectedCategory));
+    navigate(`/category`);
   }
 
   return (
@@ -36,7 +37,7 @@ export default function Home() {
         >
           <option value="" disabled></option>
           {categories.map((c) => (
-            <option key={c.id} value={c.id}>
+            <option key={c.id} value={JSON.stringify(c)}>
               {c.category || "Sin nombre"}
             </option>
           ))}
