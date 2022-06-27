@@ -12,7 +12,8 @@ function App() {
   // Before render
   async function beforeRender() {
     // Set categories
-    setCategories(getCategories());
+    const categories = await getCategories();
+    if (categories) setCategories(categories);
 
     // Set ready to render
     setReadyToRender(true);

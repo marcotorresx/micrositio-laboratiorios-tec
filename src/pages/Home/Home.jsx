@@ -1,7 +1,22 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { useAppContext } from "context/Context";
+import { useNavigate } from "react-router-dom";
 import "./Home.sass";
 
 export default function Home() {
+  // Variables
+  const { categories } = useAppContext();
+  const [selectedCategory, setSelectedCategory] = React.useState("");
+
+  // Tools
+  const navigate = useNavigate();
+
+  // Go to category
+  function goToCategory() {
+    if (selectedCategory === "" || selectedCategory === null) return;
+    navigate(`/category/${selectedCategory}`);
+  }
+
   return (
     <div className="home">
       {/* Info */}
@@ -14,12 +29,21 @@ export default function Home() {
 
       {/* Category */}
       <div className="category">
-        <select className="form-select">
-          <option value="1">Cat 1</option>
+        <select
+          className="form-select"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="" disabled></option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.category || "Sin nombre"}
+            </option>
+          ))}
         </select>
-        <Link to="/category/1">
-          <button className="btn btn-outline-primary">Buscar</button>
-        </Link>
+        <button className="btn btn-outline-primary" onClick={goToCategory}>
+          Buscar
+        </button>
       </div>
     </div>
   );

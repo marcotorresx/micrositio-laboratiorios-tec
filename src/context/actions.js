@@ -4,7 +4,6 @@ import {
   doc,
   setDoc,
   deleteDoc,
-  // addDoc,
   updateDoc,
   addDoc,
 } from "firebase/firestore";
@@ -22,7 +21,7 @@ export async function getCategories() {
 }
 
 // Add category
-export async function addCategory(name) {
+export async function addCategory(name, categories, setCategories) {
   try {
     const categoryRef = doc(collection(db, "categories"));
     const category = {
@@ -30,6 +29,7 @@ export async function addCategory(name) {
       category: name,
     };
     await setDoc(categoryRef, category);
+    setCategories([...categories, category]);
   } catch (error) {
     console.log("ADD CATEGORY ERROR:", error);
     alert("Hubo un error creando la nueva cateogoría.");
