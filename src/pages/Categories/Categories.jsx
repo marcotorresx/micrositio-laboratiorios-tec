@@ -33,7 +33,7 @@ export default function Categories() {
   return (
     <div className="categories">
       {/* Title */}
-      <h1>Categories</h1>
+      <h1>Categorías</h1>
 
       {/* Categories */}
       <div className="categories_container">

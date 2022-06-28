@@ -6,7 +6,7 @@ export const Context = React.createContext();
 // Provider
 export default function Provider({ children }) {
   // Variables
-  const [isAdmin, setIsAdmin] = React.useState(true);
+  const [isAdmin, setIsAdmin] = React.useState(false);
   const [categories, setCategories] = React.useState([]);
   const [categoryOnView, setCategoryOnView] = React.useState(null);
   const [resourceOnView, setResourceOnView] = React.useState(null);

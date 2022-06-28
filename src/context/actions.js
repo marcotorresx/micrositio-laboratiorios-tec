@@ -12,10 +12,10 @@ import { db } from "firebase.js";
 export async function getCategories() {
   try {
     const res = await getDocs(collection(db, "categories"));
-    return res.docs.map((doc) => doc.data());
+    return res?.docs?.map((doc) => doc.data());
   } catch (error) {
     console.log("GET CATEGORIES ERROR:", error);
-    alert("Hubo un error obteniendo las categorías.");
+    alert("Hubo un error obteniendo las categorías");
   }
 }
 
@@ -50,7 +50,7 @@ export async function getResources(categoryId) {
   try {
     const resourcesRef = collection(db, "categories", categoryId, "resources");
     const res = await getDocs(resourcesRef);
-    return res.docs.map((doc) => doc.data());
+    return res?.docs?.map((doc) => doc.data());
   } catch (error) {
     console.log("GET RESOURCES ERROR:", error);
     alert("Hubo un error obteniendo los recursos.");

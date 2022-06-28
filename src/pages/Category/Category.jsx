@@ -86,7 +86,7 @@ export default function Category() {
         {/* Delete category modal */}
         {showDeleteModal && (
           <GenericModal
-            title="Borrar Recurso"
+            title="Borrar Categoría"
             onContinue={deleteCategoryHandler}
             onCancel={() => setShowDeleteModal(false)}
           >
