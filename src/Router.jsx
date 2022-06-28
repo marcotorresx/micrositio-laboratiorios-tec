@@ -17,7 +17,7 @@ export default function Router() {
       {/* Private Routes */}
       <Route path="private" element={<PrivateRoute />}>
         <Route path="categories" element={<Categories />} />
-        <Route path="resource/:id" element={<ResourceForm />} />
+        <Route path="resource" element={<ResourceForm />} />
       </Route>
     </Routes>
   );

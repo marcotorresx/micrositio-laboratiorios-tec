@@ -6,9 +6,10 @@ export const Context = React.createContext();
 // Provider
 export default function Provider({ children }) {
   // Variables
-  const [isAdmin, setIsAdmin] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(true);
   const [categories, setCategories] = React.useState([]);
   const [categoryOnView, setCategoryOnView] = React.useState(null);
+  const [resourceOnView, setResourceOnView] = React.useState(null);
 
   return (
     <Context.Provider
@@ -19,6 +20,8 @@ export default function Provider({ children }) {
         setCategories,
         categoryOnView,
         setCategoryOnView,
+        resourceOnView,
+        setResourceOnView,
       }}
     >
       {children}

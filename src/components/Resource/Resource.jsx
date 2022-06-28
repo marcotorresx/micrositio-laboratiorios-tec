@@ -1,9 +1,25 @@
-import { useAppContext } from "context/Context";
+import React from "react";
 import "./Resource.sass";
+import { useAppContext } from "context/Context";
+import { useNavigate } from "react-router-dom";
+import { deleteResource } from "context/actions";
+import GenericModal from "components/GenericModal/GenericModal";
 
 export default function Resource({ resource }) {
   // Variables
-  const { isAdmin } = useAppContext();
+  const { isAdmin, categoryOnView, setResourceOnView } = useAppContext();
+  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+
+  // Tools
+  const navigate = useNavigate();
+
+  // Delete Resource Handler
+  function deleteResourceHandler() {
+    setResourceOnView(null);
+    deleteResource(categoryOnView.id, resource.id);
+    alert("Recurso eliminado exitosamente");
+    navigate("/category");
+  }
 
   return (
     <div className="resource">
@@ -11,9 +27,23 @@ export default function Resource({ resource }) {
       <div className="top">
         <h1>{resource.title || "Sin Título"}</h1>
         {isAdmin && (
-          <button className="btn btn-sm btn-outline-primary">
-            Editar Recurso
-          </button>
+          <div>
+            <button
+              className="btn btn-sm btn-outline-danger mx-2"
+              onClick={() => setShowDeleteModal(true)}
+            >
+              Eliminar
+            </button>
+            <button
+              className="btn btn-sm btn-outline-primary"
+              onClick={() => {
+                setResourceOnView(resource);
+                navigate("/private/resource");
+              }}
+            >
+              Editar
+            </button>
+          </div>
         )}
       </div>
 
@@ -30,6 +60,17 @@ export default function Resource({ resource }) {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
+
+      {/* Delete Resource Modal */}
+      {showDeleteModal && (
+        <GenericModal
+          title="Borrar Recurso"
+          onContinue={deleteResourceHandler}
+          onCancel={() => setShowDeleteModal(false)}
+        >
+          <p>¿Estás seguro que quieres borrar el recurso?</p>
+        </GenericModal>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Categories.sass";
 import { useAppContext } from "context/Context";
 import GenericModal from "components/GenericModal/GenericModal";
@@ -7,9 +7,12 @@ import { addCategory } from "context/actions";
 
 export default function Categories() {
   // Variables
-  const { categories, setCategories } = useAppContext();
+  const { categories, setCategories, setCategoryOnView } = useAppContext();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [newCategory, setNewCategory] = React.useState("");
+
+  // Tools
+  const navigate = useNavigate();
 
   // Add category
   async function addCategoryHandler() {
@@ -48,9 +51,15 @@ export default function Categories() {
           {categories.map((c) => (
             <li className="list-group-item" key={c.id}>
               {c.category}
-              <Link to={`category-edit/${c.id}`} className="link">
-                Editar
-              </Link>
+              <button
+                className="link"
+                onClick={() => {
+                  setCategoryOnView(c);
+                  navigate("/category");
+                }}
+              >
+                Ver Categoría
+              </button>
             </li>
           ))}
         </ul>

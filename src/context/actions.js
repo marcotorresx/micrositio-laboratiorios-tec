@@ -5,7 +5,6 @@ import {
   setDoc,
   deleteDoc,
   updateDoc,
-  addDoc,
 } from "firebase/firestore";
 import { db } from "firebase.js";
 
@@ -59,17 +58,11 @@ export async function getResources(categoryId) {
 }
 
 // Add resource
-export async function addResource(categoryId) {
+export async function addResource(categoryId, resource) {
   try {
     const docRef = doc(db, "categories", categoryId);
-    const resourceRef = collection(docRef, "resources");
-    const resource = {
-      id: resourceRef.id,
-      title: "Nuevo Recurso",
-      description: "Descripción del nuevo recurso.",
-      link: "https://youtu.be/-WVIVnenMAo",
-    };
-    await addDoc(resourceRef, resource);
+    const resourceRef = doc(collection(docRef, "resources"));
+    await setDoc(resourceRef, { ...resource, id: resourceRef.id });
   } catch (error) {
     console.log("ADD RESOURCE ERROR:", error);
     alert("Hubo un error agregando el nuevo recurso.");
@@ -77,18 +70,15 @@ export async function addResource(categoryId) {
 }
 
 // Update resource
-export async function updateResource(categoryId, resourceId) {
+export async function updateResource(categoryId, resource) {
   try {
     const resourceRef = doc(
       db,
       "categories",
       categoryId,
       "resources",
-      resourceId
+      resource.id
     );
-    const resource = {
-      description: "Descripción del nuevo recurso. 2",
-    };
     await updateDoc(resourceRef, resource);
   } catch (error) {
     console.log("UPDATE RESOURCE ERROR:", error);
