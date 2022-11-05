@@ -1,5 +1,4 @@
 import React from "react";
-import Resource from "components/Resource/Resource";
 import "./Category.sass";
 import { useAppContext } from "context/Context";
 import { getResources, deleteCategory } from "context/actions";
@@ -64,7 +63,14 @@ export default function Category() {
       {resources?.length > 0 ? (
         <ul className="list-group resources_list">
           {resources.map((r) => (
-            <li className="list-group-item resources_item" key={r.id}>
+            <li
+              className="list-group-item resources_item"
+              key={r.id}
+              onClick={() => {
+                setResourceOnView(r);
+                navigate("/resource");
+              }}
+            >
               <p className="name">{r?.title || "Sin nombre"}</p>
               <p className="type">Video</p>
             </li>

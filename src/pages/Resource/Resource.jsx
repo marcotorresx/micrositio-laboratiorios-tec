@@ -5,9 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { deleteResource } from "context/actions";
 import GenericModal from "components/GenericModal/GenericModal";
 
-export default function Resource({ resource }) {
+export default function Resource() {
   // Variables
-  const { isAdmin, categoryOnView, setResourceOnView } = useAppContext();
+  const {
+    isAdmin,
+    categoryOnView,
+    resourceOnView: resource,
+    setResourceOnView,
+  } = useAppContext();
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
 
   // Tools
@@ -25,7 +30,7 @@ export default function Resource({ resource }) {
     <div className="resource">
       {/* Title */}
       <div className="top">
-        <h1>{resource.title || "Sin Título"}</h1>
+        <h1>{resource?.title || "Sin Título"}</h1>
         {isAdmin && (
           <div>
             <button
@@ -48,13 +53,15 @@ export default function Resource({ resource }) {
       </div>
 
       {/* Description */}
-      <p className="description">{resource.description || "Sin descripción"}</p>
+      <p className="description">
+        {resource?.description || "Sin descripción"}
+      </p>
 
       {/*  Video */}
       <iframe
         width="560"
         height="315"
-        src={resource.link?.replace("watch?v=", "embed/")}
+        src={resource?.link?.replace("watch?v=", "embed/")}
         title="YouTube video player"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
