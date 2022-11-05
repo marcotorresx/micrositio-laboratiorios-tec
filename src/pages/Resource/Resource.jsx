@@ -53,9 +53,9 @@ export default function Resource() {
       </div>
 
       {/* Description */}
-      <p className="description">
-        {resource?.description || "Sin descripción"}
-      </p>
+      {resource?.description && (
+        <p className="description">{resource?.description}</p>
+      )}
 
       {/*  Video */}
       <iframe

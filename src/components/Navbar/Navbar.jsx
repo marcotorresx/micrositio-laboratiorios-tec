@@ -7,7 +7,7 @@ export default function Navbar() {
   const { isAdmin } = useAppContext();
 
   return (
-    <div className="nb">
+    <div className="navbar">
       {/* Home */}
       <Link to="/">
         <img src="/imgs/logo.png" alt="Logo" />

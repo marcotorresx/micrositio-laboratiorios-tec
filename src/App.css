@@ -45,16 +45,3 @@
     transform: rotate(360deg);
   }
 }
-
-.app_container {
-  margin-top: 50px;
-  width: 100%;
-  max-width: 900px;
-}
-
-.no_data {
-  font-size: 14px;
-  margin-top: 7vh;
-  margin-bottom: 7vh;
-  color: #7e7e7e;
-}
