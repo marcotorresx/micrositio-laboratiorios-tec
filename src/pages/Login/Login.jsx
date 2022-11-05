@@ -2,6 +2,7 @@ import React from "react";
 import { useAppContext } from "context/Context";
 import { useNavigate } from "react-router-dom";
 import "./Login.sass";
+import toast from "react-hot-toast";
 
 export default function Login() {
   // Variables
@@ -20,7 +21,7 @@ export default function Login() {
       navigate("/private/categories");
     } else {
       setIsAdmin(false);
-      alert("Contraseña incorrecta");
+      toast.error("Contraseña incorrecta");
     }
   }
 
