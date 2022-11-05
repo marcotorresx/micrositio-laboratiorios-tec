@@ -4,6 +4,7 @@ import "./Categories.sass";
 import { useAppContext } from "context/Context";
 import GenericModal from "components/GenericModal/GenericModal";
 import { addCategory } from "context/actions";
+import toast from "react-hot-toast";
 
 export default function Categories() {
   // Variables
@@ -18,7 +19,7 @@ export default function Categories() {
   async function addCategoryHandler() {
     // Validate field
     if (newCategory === "" || !newCategory.trim()) {
-      alert("Debes llenar el campo");
+      toast.error("Debes llenar el campo");
       return;
     }
 

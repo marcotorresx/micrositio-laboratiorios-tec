@@ -48,15 +48,17 @@ export default function Category() {
 
       {/* Add Resource */}
       {isAdmin && (
-        <button
-          className="add_resource_btn btn btn-primary"
-          onClick={() => {
-            setResourceOnView(null);
-            navigate("/private/resource");
-          }}
-        >
-          + Agregar Recurso
-        </button>
+        <div className="add_resource_btn_container">
+          <button
+            className="btn btn-outline-primary btn-sm"
+            onClick={() => {
+              setResourceOnView(null);
+              navigate("/private/resource");
+            }}
+          >
+            + Agregar Recurso
+          </button>
+        </div>
       )}
 
       {/* Resources */}
@@ -83,7 +85,7 @@ export default function Category() {
       {/* Delete Btn */}
       {isAdmin && (
         <button
-          className="btn btn-danger mt-2"
+          className="btn btn-outline-danger btn-sm mt-5"
           onClick={() => setShowDeleteModal(true)}
         >
           Eliminar Categoría
