@@ -16,14 +16,38 @@
     font-weight: 400
     width: 500px
 
-  p
+  .categories_title
     font-weight: 600
     font-size: 17px
-    margin-bottom: 20px
+    margin-bottom: 25px
+    width: 100%
+    text-align: start
 
-  .category
-    display: flex
+  .categories
+    width: 100%
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-gap: 20px
 
-    select
-      width: 300px
-      margin-right: 20px
+    .item
+      display: flex
+      border: 1px solid #bebebe
+      align-items: center
+      height: 50px
+      border-radius: 10px
+      transition: all 200ms
+      cursor: pointer
+
+      &:hover
+        background: #f3f3f3
+
+      .icon
+        margin-left: 10%
+        width: 11%
+
+      p
+        margin-left: 8%
+        margin-bottom: 0px
+        font-weight: 500
+        font-size: 14px
+

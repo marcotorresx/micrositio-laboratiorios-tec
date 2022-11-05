@@ -4,19 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "./Home.sass";
 
 export default function Home() {
-  // Variables
   const { categories, setCategoryOnView } = useAppContext();
-  const [selectedCategory, setSelectedCategory] = React.useState("");
-
-  // Tools
   const navigate = useNavigate();
-
-  // Go to category
-  function goToCategory() {
-    if (selectedCategory === "" || selectedCategory === null) return;
-    setCategoryOnView(JSON.parse(selectedCategory));
-    navigate(`/category`);
-  }
 
   return (
     <div className="home">
@@ -26,26 +15,28 @@ export default function Home() {
         Aquí podrás buscar y ver los videos de los materiales del laboratorio
         que desees.
       </h4>
-      <p>Selecciona la categoría que buscas:</p>
+      <p className="categories_title">Categorías:</p>
 
-      {/* Category */}
-      <div className="category">
-        <select
-          className="form-select"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <option value="" disabled></option>
+      {/* Categories */}
+      {categories.length > 0 ? (
+        <div className="categories">
           {categories.map((c) => (
-            <option key={c.id} value={JSON.stringify(c)}>
-              {c.category || "Sin nombre"}
-            </option>
+            <div
+              className="item"
+              key={c.id}
+              onClick={() => {
+                setCategoryOnView(c);
+                navigate(`/category`);
+              }}
+            >
+              <img src="/imgs/folder.png" alt="Folder" className="icon" />
+              <p>{c.category || "Sin nombre"}</p>
+            </div>
           ))}
-        </select>
-        <button className="btn btn-outline-primary" onClick={goToCategory}>
-          Buscar
-        </button>
-      </div>
+        </div>
+      ) : (
+        <p className="no_data">No hay recursos en esta categoría</p>
+      )}
     </div>
   );
 }

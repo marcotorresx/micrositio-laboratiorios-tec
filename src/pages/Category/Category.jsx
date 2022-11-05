@@ -70,7 +70,7 @@ export default function Category() {
             ))}
           </div>
         ) : (
-          <p className="no_resources">No hay recursos en esta categoría</p>
+          <p className="no_data">No hay recursos en esta categoría</p>
         )}
 
         {/* Delete Btn */}
