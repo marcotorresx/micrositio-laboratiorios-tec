@@ -3,7 +3,7 @@ import Home from "pages/Home/Home";
 import Category from "pages/Category/Category";
 import Categories from "pages/Categories/Categories";
 import Login from "pages/Login/Login";
-import PrivateRoute from "PrivateRoute";
+import PrivateRoute from "router/PrivateRoute";
 import ResourceForm from "pages/ResourceForm/ResourceForm";
 
 export default function Router() {

@@ -1,9 +1,9 @@
-import Navbar from "components/Navbar/Navbar";
 import React from "react";
-import Router from "./Router";
 import { getCategories } from "context/actions";
 import { Context } from "context/Context";
 import "./App.css";
+import Layout from "components/Layout/Layout";
+import Loader from "components/Loader/Loader";
 
 function App() {
   const [readyToRender, setReadyToRender] = React.useState(false);
@@ -11,7 +11,7 @@ function App() {
 
   // Before render
   async function beforeRender() {
-    // Set categories
+    // Get categories
     const categories = await getCategories();
     if (categories) setCategories(categories);
 
@@ -24,16 +24,7 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  return readyToRender ? (
-    <div className="App">
-      <Navbar />
-      <div className="app_container">
-        <Router />
-      </div>
-    </div>
-  ) : (
-    <p>Cargando...</p>
-  );
+  return readyToRender ? <Layout /> : <Loader />;
 }
 
 export default App;
