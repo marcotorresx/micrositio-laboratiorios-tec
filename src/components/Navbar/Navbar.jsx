@@ -5,7 +5,12 @@ import "./Navbar.sass";
 
 export default function Navbar() {
   // Variables
-  const { isAdmin } = useAppContext();
+  const { isAdmin, setIsAdmin } = useAppContext();
+
+  // Logout admin
+  function logoutAdmin() {
+    setIsAdmin(false);
+  }
 
   return (
     <div className="navbar">
@@ -16,9 +21,14 @@ export default function Navbar() {
 
       {/* Categories or Login */}
       {isAdmin ? (
-        <Link to="/private/categories">
-          <button className="btn btn-primary">Categorías</button>
-        </Link>
+        <div>
+          <Link to="/private/categories">
+            <button className="btn btn-primary">Categorías</button>
+          </Link>
+          <button className="btn btn-outline-danger" onClick={logoutAdmin}>
+            Salir
+          </button>
+        </div>
       ) : (
         <Link to="/login">
           <button className="btn btn-primary">Ingresar</button>
