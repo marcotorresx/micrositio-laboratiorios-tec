@@ -55,16 +55,31 @@ export default function Resource() {
         <p className="description">{resource?.description}</p>
       )}
 
-      {/*  Video */}
-      <iframe
-        width="560"
-        height="315"
-        src={resource?.link?.replace("watch?v=", "embed/")}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+      {/* Doc or Video */}
+      {resource?.type === "video" ? (
+        <iframe
+          width="560"
+          height="315"
+          src={resource?.link?.replace("watch?v=", "embed/")}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="video"
+        ></iframe>
+      ) : (
+        <a
+          className="doc_link"
+          href={resource.link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <button className="doc_btn">
+            <img src="/imgs/drive.png" alt="Drive" />
+            <p>Ver en Google Drive</p>
+          </button>
+        </a>
+      )}
 
       {/* Delete Resource Modal */}
       {showDeleteModal && (
