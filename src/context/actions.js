@@ -35,6 +35,26 @@ export async function addCategory(name, categories, setCategories) {
   }
 }
 
+// Add category
+export async function updateCategory(
+  categoryId,
+  name,
+  categories,
+  setCategories
+) {
+  try {
+    const categoryRef = doc(db, "categories", categoryId);
+    await updateDoc(categoryRef, { category: name });
+
+    const filteredCategories = categories.filter((c) => c.id !== categoryId);
+    const updatedCategory = { id: categoryId, category: name };
+    setCategories([...filteredCategories, updatedCategory]);
+  } catch (error) {
+    console.log("EDIT CATEGORY ERROR:", error);
+    alert("Hubo un error editando la cateogoría.");
+  }
+}
+
 // Delete category
 export async function deleteCategory(id) {
   try {

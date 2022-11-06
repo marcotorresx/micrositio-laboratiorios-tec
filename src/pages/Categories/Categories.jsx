@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "./Categories.sass";
 import { useAppContext } from "context/Context";
 import GenericModal from "components/GenericModal/GenericModal";
-import { addCategory } from "context/actions";
+import { addCategory, updateCategory } from "context/actions";
 import toast from "react-hot-toast";
 
 export default function Categories() {
   // Variables
   const { categories, setCategories, setCategoryOnView } = useAppContext();
   const [showAddModal, setShowAddModal] = React.useState(false);
-  const [newCategory, setNewCategory] = React.useState("");
+  const [showEditModal, setShowEditModal] = React.useState(false);
+  const [categoryName, setCategoryName] = React.useState("");
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
 
   // Tools
   const navigate = useNavigate();
@@ -18,17 +20,40 @@ export default function Categories() {
   // Add category
   async function addCategoryHandler() {
     // Validate field
-    if (newCategory === "" || !newCategory.trim()) {
+    if (categoryName === "" || !categoryName.trim()) {
       toast.error("Debes llenar el campo");
       return;
     }
 
     // Make request
-    addCategory(newCategory, categories, setCategories);
+    addCategory(categoryName, categories, setCategories);
 
     // Clean values
-    setNewCategory("");
+    setCategoryName("");
     setShowAddModal(false);
+    toast.success("Categoría añadida");
+  }
+
+  // Edit category
+  async function editCategoryHandler() {
+    // Validate field
+    if (categoryName === "" || !categoryName.trim()) {
+      toast.error("Debes llenar el campo");
+      return;
+    }
+
+    // Make request
+    updateCategory(
+      selectedCategory.id,
+      categoryName,
+      categories,
+      setCategories
+    );
+
+    // Clean values
+    setCategoryName("");
+    setShowEditModal(false);
+    toast.success("Categoría actualizada");
   }
 
   return (
@@ -50,16 +75,25 @@ export default function Categories() {
         {/* List */}
         <ul className="list-group">
           {categories.map((c) => (
-            <li className="list-group-item" key={c.id}>
+            <li
+              className="list-group-item"
+              key={c.id}
+              onClick={() => {
+                setCategoryOnView(c);
+                navigate("/category");
+              }}
+            >
               {c.category}
               <button
                 className="link"
-                onClick={() => {
-                  setCategoryOnView(c);
-                  navigate("/category");
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCategoryName(c.category);
+                  setSelectedCategory(c);
+                  setShowEditModal(true);
                 }}
               >
-                Ver Categoría
+                Editar
               </button>
             </li>
           ))}
@@ -77,8 +111,25 @@ export default function Categories() {
             className="form-control"
             placeholder="Nueva categoría"
             type="text"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+          />
+        </GenericModal>
+      )}
+
+      {/* Edit category modal */}
+      {showEditModal && (
+        <GenericModal
+          title="Editar Categoría"
+          onContinue={editCategoryHandler}
+          onCancel={() => setShowEditModal(false)}
+        >
+          <input
+            className="form-control"
+            placeholder="Nuevo nombre"
+            type="text"
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
           />
         </GenericModal>
       )}
