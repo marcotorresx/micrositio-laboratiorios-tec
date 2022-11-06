@@ -52,8 +52,7 @@ export default function Category() {
           <button
             className="btn btn-outline-primary btn-sm"
             onClick={() => {
-              setResourceOnView(null);
-              navigate("/private/resource");
+              navigate("/private/resource/add");
             }}
           >
             + Agregar Recurso

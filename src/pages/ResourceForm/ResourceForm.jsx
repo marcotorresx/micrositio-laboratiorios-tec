@@ -2,12 +2,13 @@ import React from "react";
 import { useAppContext } from "context/Context";
 import { addResource, updateResource } from "context/actions";
 import "./ResourceForm.sass";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function ResourceForm() {
   // Variables
   const { categoryOnView, resourceOnView } = useAppContext();
-  const [editMode] = React.useState(!!resourceOnView);
+  const [editMode] = React.useState(useParams().mode === "edit");
 
   // Input values
   const [title, setTitle] = React.useState(
@@ -15,6 +16,9 @@ export default function ResourceForm() {
   );
   const [description, setDescription] = React.useState(
     editMode ? resourceOnView.description : ""
+  );
+  const [type, setType] = React.useState(
+    editMode ? resourceOnView.type : "document"
   );
   const [link, setLink] = React.useState(editMode ? resourceOnView.link : "");
 
@@ -29,10 +33,12 @@ export default function ResourceForm() {
       title === "" ||
       !description.trim() ||
       description === "" ||
+      !type.trim() ||
+      type === "" ||
       !link.trim() ||
       link === ""
     ) {
-      alert("Debes llenar todos los campos");
+      toast.error("Debes llenar los campos");
       return;
     }
 
@@ -42,9 +48,10 @@ export default function ResourceForm() {
         id: resourceOnView.id,
         title,
         description,
+        type,
         link,
       });
-    else addResource(categoryOnView.id, { title, description, link });
+    else addResource(categoryOnView.id, { title, description, type, link });
 
     // Go to category
     navigate("/category");
@@ -87,8 +94,26 @@ export default function ResourceForm() {
 
         {/* Link */}
         <div className="mb-4">
+          <label htmlFor="type" className="form-label">
+            Tipo
+          </label>
+          <select
+            className="form-select"
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="document">Documento</option>
+            <option value="video">Video</option>
+          </select>
+        </div>
+
+        {/* Link */}
+        <div className="mb-4">
           <label htmlFor="link" className="form-label">
-            Link de Vídeo en YouTube
+            {type === "document"
+              ? "Link de Documento en Google Drive"
+              : "Link de Vídeo en YouTube"}
           </label>
           <input
             type="text"
@@ -102,7 +127,7 @@ export default function ResourceForm() {
         {/* Add Btn */}
         <button
           type="button"
-          className="btn btn-primary mt-2 w-100"
+          className="btn btn-primary mt-4 w-100"
           onClick={actionHandler}
         >
           Guardar Recurso

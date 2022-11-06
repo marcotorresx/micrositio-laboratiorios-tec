@@ -11,7 +11,7 @@ export default function GenericModal({
     <div className="generic_modal_background">
       <div className="generic_modal">
         <div className="title">
-          <h1>{title}</h1>
+          <h1 className="title_text">{title}</h1>
         </div>
         <div className="body">{children}</div>
         <div className="actions">

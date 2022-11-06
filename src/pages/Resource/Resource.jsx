@@ -29,28 +29,26 @@ export default function Resource() {
   return (
     <div className="resource">
       {/* Title */}
-      <div className="top">
-        <h1>{resource?.title || "Sin Título"}</h1>
-        {isAdmin && (
-          <div>
-            <button
-              className="btn btn-sm btn-outline-danger mx-2"
-              onClick={() => setShowDeleteModal(true)}
-            >
-              Eliminar
-            </button>
-            <button
-              className="btn btn-sm btn-outline-primary"
-              onClick={() => {
-                setResourceOnView(resource);
-                navigate("/private/resource");
-              }}
-            >
-              Editar
-            </button>
-          </div>
-        )}
-      </div>
+      <h1 className="title">{resource?.title || "Sin Título"}</h1>
+      {isAdmin && (
+        <div className="actions">
+          <button
+            className="btn btn-sm btn-outline-primary"
+            onClick={() => {
+              setResourceOnView(resource);
+              navigate("/private/resource/edit");
+            }}
+          >
+            Editar
+          </button>
+          <button
+            className="btn btn-sm btn-outline-danger mx-2"
+            onClick={() => setShowDeleteModal(true)}
+          >
+            Eliminar
+          </button>
+        </div>
+      )}
 
       {/* Description */}
       {resource?.description && (
