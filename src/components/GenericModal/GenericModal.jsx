@@ -14,7 +14,7 @@ export default function GenericModal({
           <h1 className="title_text">{title}</h1>
         </div>
         <div className="body">{children}</div>
-        <div className="actions">
+        <div className="modal_actions">
           <button
             className="btn btn-sm btn-outline-primary"
             type="button"

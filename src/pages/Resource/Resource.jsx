@@ -4,6 +4,7 @@ import { useAppContext } from "context/Context";
 import { useNavigate } from "react-router-dom";
 import { deleteResource } from "context/actions";
 import GenericModal from "components/GenericModal/GenericModal";
+import toast from "react-hot-toast";
 
 export default function Resource() {
   // Variables
@@ -22,7 +23,7 @@ export default function Resource() {
   function deleteResourceHandler() {
     setResourceOnView(null);
     deleteResource(categoryOnView.id, resource.id);
-    alert("Recurso eliminado exitosamente");
+    toast.success("Recurso eliminado");
     navigate("/category");
   }
 

@@ -5,6 +5,7 @@ import { getResources, deleteCategory } from "context/actions";
 import { useNavigate } from "react-router-dom";
 import GenericModal from "components/GenericModal/GenericModal";
 import Loader from "components/Loader/Loader";
+import toast from "react-hot-toast";
 
 export default function Category() {
   // Variables
@@ -33,8 +34,20 @@ export default function Category() {
     deleteCategory(category.id);
     setCategories(categories.filter((c) => c.id !== category.id));
     setCategoryOnView(null);
-    alert("Categoría eliminada exitosamente");
+    toast.success("Categoría eliminada");
     navigate("/");
+  }
+
+  // Get resource type
+  function getResourceType(type) {
+    switch (type) {
+      case "video":
+        return "Video";
+      case "document":
+        return "Documento";
+      default:
+        return "Documento";
+    }
   }
 
   React.useEffect(() => {
@@ -73,7 +86,7 @@ export default function Category() {
               }}
             >
               <p className="name">{r?.title || "Sin nombre"}</p>
-              <p className="type">Video</p>
+              <p className="type">{getResourceType(r.type)}</p>
             </li>
           ))}
         </ul>
