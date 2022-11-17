@@ -7,47 +7,47 @@
     color: #1771C5
     font-size: 27px
     font-weight: 600
-    margin-bottom: 30px
-
-  h4
-    line-height: 25px
     margin-bottom: 50px
-    font-size: 16px
-    font-weight: 400
-    width: 500px
-
-  .categories_title
-    font-weight: 600
-    font-size: 17px
-    margin-bottom: 25px
-    width: 100%
-    text-align: start
 
   .categories
-    width: 100%
-    display: grid
-    grid-template-columns: repeat(4, 1fr)
-    grid-gap: 20px
+    width: 90%
+    display: flex
+    flex-direction: column
 
     .item
-      display: flex
-      border: 1px solid #bebebe
-      align-items: center
-      height: 50px
-      border-radius: 10px
+      width: 100%
+      position: relative
+      margin-bottom: 20px
       transition: all 200ms
       cursor: pointer
 
       &:hover
-        background: #f3f3f3
+        transform: scale(1.02)
 
-      .icon
-        margin-left: 10%
-        width: 11%
+    .item_content
+      z-index: 10
+      width: 100%
+      height: 120px
+      display: flex
+      align-items: center
+      border-radius: 10px
+      background: linear-gradient(to right, rgba(0, 29, 57, 1), rgba(0, 29, 57, .55), rgba(255, 255, 255, 0))
 
       p
+        color: white
         margin-left: 8%
         margin-bottom: 0px
-        font-weight: 500
-        font-size: 14px
+        font-weight: 600
+        font-size: 23px
+
+    img
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: -1
+      border-radius: 10px
+
+      
 
