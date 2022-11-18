@@ -20,12 +20,13 @@ export async function getCategories() {
 }
 
 // Add category
-export async function addCategory(name, categories, setCategories) {
+export async function addCategory(name, userAccess, categories, setCategories) {
   try {
     const categoryRef = doc(collection(db, "categories"));
     const category = {
       id: categoryRef.id,
       category: name,
+      userAccess,
     };
     await setDoc(categoryRef, category);
     setCategories([...categories, category]);
@@ -39,6 +40,7 @@ export async function addCategory(name, categories, setCategories) {
 export async function updateCategory(
   categoryId,
   name,
+  userAccess,
   categories,
   setCategories
 ) {
@@ -47,7 +49,7 @@ export async function updateCategory(
     await updateDoc(categoryRef, { category: name });
 
     const filteredCategories = categories.filter((c) => c.id !== categoryId);
-    const updatedCategory = { id: categoryId, category: name };
+    const updatedCategory = { id: categoryId, category: name, userAccess };
     setCategories([...filteredCategories, updatedCategory]);
   } catch (error) {
     console.log("EDIT CATEGORY ERROR:", error);

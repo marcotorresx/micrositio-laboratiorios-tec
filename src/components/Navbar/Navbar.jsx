@@ -5,35 +5,42 @@ import "./Navbar.sass";
 
 export default function Navbar() {
   // Variables
-  const { isAdmin, setIsAdmin } = useAppContext();
+  const { isAdmin, isStudent, setIsAdmin, setIsStudent } = useAppContext();
 
   // Logout admin
   function logoutAdmin() {
     setIsAdmin(false);
+    setIsStudent(false);
   }
 
   return (
     <div className="navbar">
-      {/* Home */}
+      {/* Logo */}
       <Link to="/">
         <img src="/imgs/logo.png" alt="Logo" />
       </Link>
 
-      {/* Categories or Login */}
-      {isAdmin ? (
-        <div>
+      {/* Buttons */}
+      <div>
+        <Link to="/">
+          <button className="btn btn-outline-primary">Inicio</button>
+        </Link>
+        {isAdmin && (
           <Link to="/private/categories">
-            <button className="btn btn-primary">Categorías</button>
+            <button className="btn btn-outline-primary">Categorías</button>
           </Link>
+        )}
+        {(isAdmin || isStudent) && (
           <button className="btn btn-outline-danger" onClick={logoutAdmin}>
             Salir
           </button>
-        </div>
-      ) : (
-        <Link to="/login">
-          <button className="btn btn-primary">Ingresar</button>
-        </Link>
-      )}
+        )}
+        {!isAdmin && !isStudent && (
+          <Link to="/login">
+            <button className="btn btn-outline-primary">Ingresar</button>
+          </Link>
+        )}
+      </div>
 
       {/* Toaster */}
       <Toaster

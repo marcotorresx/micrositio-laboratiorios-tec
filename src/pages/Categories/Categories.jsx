@@ -12,6 +12,7 @@ export default function Categories() {
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [categoryName, setCategoryName] = React.useState("");
+  const [userAccess, setUserAccess] = React.useState("student");
   const [selectedCategory, setSelectedCategory] = React.useState(null);
 
   // Tools
@@ -20,16 +21,22 @@ export default function Categories() {
   // Add category
   async function addCategoryHandler() {
     // Validate field
-    if (categoryName === "" || !categoryName.trim()) {
+    if (
+      categoryName === "" ||
+      !categoryName.trim() ||
+      userAccess === "" ||
+      !userAccess.trim()
+    ) {
       toast.error("Debes llenar el campo");
       return;
     }
 
     // Make request
-    addCategory(categoryName, categories, setCategories);
+    addCategory(categoryName, userAccess, categories, setCategories);
 
     // Clean values
     setCategoryName("");
+    setUserAccess("student");
     setShowAddModal(false);
     toast.success("Categoría añadida");
   }
@@ -37,7 +44,12 @@ export default function Categories() {
   // Edit category
   async function editCategoryHandler() {
     // Validate field
-    if (categoryName === "" || !categoryName.trim()) {
+    if (
+      categoryName === "" ||
+      !categoryName.trim() ||
+      userAccess === "" ||
+      !userAccess.trim()
+    ) {
       toast.error("Debes llenar el campo");
       return;
     }
@@ -46,12 +58,14 @@ export default function Categories() {
     updateCategory(
       selectedCategory.id,
       categoryName,
+      userAccess,
       categories,
       setCategories
     );
 
     // Clean values
     setCategoryName("");
+    setUserAccess("student");
     setShowEditModal(false);
     toast.success("Categoría actualizada");
   }
@@ -89,6 +103,7 @@ export default function Categories() {
                 onClick={(e) => {
                   e.stopPropagation();
                   setCategoryName(c.category);
+                  setUserAccess(c.userAccess);
                   setSelectedCategory(c);
                   setShowEditModal(true);
                 }}
@@ -107,13 +122,29 @@ export default function Categories() {
           onContinue={addCategoryHandler}
           onCancel={() => setShowAddModal(false)}
         >
+          <label htmlFor="add_name" className="modal_label">
+            Nombre
+          </label>
           <input
-            className="form-control"
-            placeholder="Nueva categoría"
+            id="add_name"
+            className="form-control mb-3"
+            placeholder="Nombre"
             type="text"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
           />
+          <label htmlFor="add_user" className="modal_label">
+            Acceso
+          </label>
+          <select
+            class="form-select"
+            id="add_user"
+            value={userAccess}
+            onChange={(e) => setUserAccess(e.target.value)}
+          >
+            <option value="public">Todos</option>
+            <option value="student">Alumnos</option>
+          </select>
         </GenericModal>
       )}
 
@@ -124,13 +155,29 @@ export default function Categories() {
           onContinue={editCategoryHandler}
           onCancel={() => setShowEditModal(false)}
         >
+          <label htmlFor="add_name" className="modal_label">
+            Nombre
+          </label>
           <input
-            className="form-control"
-            placeholder="Nuevo nombre"
+            id="add_name"
+            className="form-control mb-3"
+            placeholder="Nombre"
             type="text"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
           />
+          <label htmlFor="add_user" className="modal_label">
+            Acceso
+          </label>
+          <select
+            class="form-select"
+            id="add_user"
+            value={userAccess}
+            onChange={(e) => setUserAccess(e.target.value)}
+          >
+            <option value="public">Todos</option>
+            <option value="student">Alumnos</option>
+          </select>
         </GenericModal>
       )}
     </div>

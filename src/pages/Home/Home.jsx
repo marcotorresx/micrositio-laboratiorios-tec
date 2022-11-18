@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 import "./Home.sass";
 
 export default function Home() {
-  const { categories, setCategoryOnView } = useAppContext();
+  const {
+    categories: allCategories,
+    setCategoryOnView,
+    isStudent,
+    isAdmin,
+  } = useAppContext();
+  const [categories, setCategories] = React.useState([]);
   const navigate = useNavigate();
 
   function getRandomBanner() {
@@ -18,6 +24,17 @@ export default function Home() {
     ];
     return staticBanners[Math.floor(Math.random() * staticBanners.length)];
   }
+
+  // Filter categories
+  React.useEffect(() => {
+    // If user is student or admin show all
+    if (isStudent || isAdmin) {
+      setCategories(allCategories);
+    } else {
+      // Show only public
+      setCategories(allCategories.filter((c) => c.userAccess === "public"));
+    }
+  }, [allCategories, isAdmin, isStudent]);
 
   return (
     <div className="home">
