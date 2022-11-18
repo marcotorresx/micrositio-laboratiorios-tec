@@ -6,6 +6,7 @@ import Login from "pages/Login/Login";
 import PrivateRoute from "router/PrivateRoute";
 import Resource from "pages/Resource/Resource";
 import ResourceForm from "pages/ResourceForm/ResourceForm";
+import CategoryForm from "pages/CategoryForm/CategoryForm";
 
 export default function Router() {
   return (
@@ -19,6 +20,7 @@ export default function Router() {
       {/* Private Routes */}
       <Route path="private" element={<PrivateRoute />}>
         <Route path="categories" element={<Categories />} />
+        <Route path="category/form/:mode" element={<CategoryForm />} />
         <Route path="resource/:mode" element={<ResourceForm />} />
       </Route>
     </Routes>
