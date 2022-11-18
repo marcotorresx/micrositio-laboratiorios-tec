@@ -46,7 +46,7 @@ export async function updateCategory(
 ) {
   try {
     const categoryRef = doc(db, "categories", categoryId);
-    await updateDoc(categoryRef, { category: name });
+    await updateDoc(categoryRef, { category: name, userAccess });
 
     const filteredCategories = categories.filter((c) => c.id !== categoryId);
     const updatedCategory = { id: categoryId, category: name, userAccess };

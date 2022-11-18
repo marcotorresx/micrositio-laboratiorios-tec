@@ -44,7 +44,7 @@ export default function Login() {
           Usuario
         </label>
         <select
-          class="form-select mb-3"
+          className="form-select mb-3"
           id="user_type"
           value={userType}
           onChange={(e) => setUserType(e.target.value)}

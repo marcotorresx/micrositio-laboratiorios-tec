@@ -12,7 +12,7 @@ export default function Categories() {
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [categoryName, setCategoryName] = React.useState("");
-  const [userAccess, setUserAccess] = React.useState("student");
+  const [userAccess, setUserAccess] = React.useState("public");
   const [selectedCategory, setSelectedCategory] = React.useState(null);
 
   // Tools
