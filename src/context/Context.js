@@ -17,14 +17,14 @@ export default function Provider({ children }) {
       value={{
         isAdmin,
         setIsAdmin,
+        isStudent,
+        setIsStudent,
         categories,
         setCategories,
         categoryOnView,
         setCategoryOnView,
         resourceOnView,
         setResourceOnView,
-        isStudent,
-        setIsStudent,
       }}
     >
       {children}

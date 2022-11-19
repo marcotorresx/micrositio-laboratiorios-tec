@@ -35,7 +35,7 @@ export default function Category() {
     setCategories(categories.filter((c) => c.id !== category.id));
     setCategoryOnView(null);
     toast.success("Categoría eliminada");
-    navigate("/");
+    navigate("/private/categories");
   }
 
   // Get resource type

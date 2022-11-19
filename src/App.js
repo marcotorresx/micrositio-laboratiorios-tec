@@ -11,11 +11,9 @@ function App() {
 
   // Before render
   async function beforeRender() {
-    // Get categories
     const categories = await getCategories();
     if (categories) setCategories(categories);
 
-    // Set ready to render
     setReadyToRender(true);
   }
 

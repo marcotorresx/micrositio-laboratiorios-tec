@@ -17,7 +17,7 @@ export default function Router() {
       <Route path="category" element={<Category />} />
       <Route path="resource" element={<Resource />} />
 
-      {/* Private Routes */}
+      {/* Admin Routes */}
       <Route path="private" element={<PrivateRoute />}>
         <Route path="categories" element={<Categories />} />
         <Route path="category/form/:mode" element={<CategoryForm />} />
