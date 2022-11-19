@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "context/Context";
 import "./Categories.sass";
 
@@ -18,11 +18,16 @@ export default function Categories() {
       {/* Categories */}
       <div className="categories_container">
         {/* Add Button */}
-        <Link to="/private/category/form/add" className="add_link">
-          <button type="button" className="btn btn-outline-primary btn-sm">
-            Agregar Categoría
-          </button>
-        </Link>
+        <button
+          type="button"
+          className="btn btn-outline-primary btn-sm"
+          onClick={() => {
+            setCategoryOnView(null);
+            navigate("/private/category/form/add");
+          }}
+        >
+          Agregar Categoría
+        </button>
 
         {/* List */}
         <ul className="list-group">

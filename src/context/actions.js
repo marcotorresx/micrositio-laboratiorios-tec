@@ -85,9 +85,16 @@ export async function updateCategory(
 }
 
 // Delete category
-export async function deleteCategory(id) {
+export async function deleteCategory(id, bannerPath) {
   try {
+    // Delete document
     await deleteDoc(doc(db, "categories", id));
+
+    // Delete banner
+    if (bannerPath) {
+      const fileRef = ref(storage, bannerPath);
+      await deleteObject(fileRef);
+    }
   } catch (error) {
     console.log("DELETE CATEGORY ERROR:", error);
     toast.error("Hubo un error eliminando la cateogoría.");

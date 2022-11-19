@@ -82,7 +82,10 @@ export default function CategoryForm() {
     let bannerUrl = category.bannerUrl;
     let bannerPath = category.bannerPath;
     if (file) {
-      await deleteBanner(category.bannerPath);
+      // If it had already a banner, delete it
+      if (category.bannerPath) await deleteBanner(category.bannerPath);
+
+      // Upload new banner
       const res = await uploadBanner(file);
       bannerUrl = res.bannerUrl;
       bannerPath = res.bannerPath;

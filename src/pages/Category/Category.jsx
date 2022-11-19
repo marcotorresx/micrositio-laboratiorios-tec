@@ -31,7 +31,7 @@ export default function Category() {
 
   // Delete category handler
   function deleteCategoryHandler() {
-    deleteCategory(category.id);
+    deleteCategory(category.id, category.bannerPath);
     setCategories(categories.filter((c) => c.id !== category.id));
     setCategoryOnView(null);
     toast.success("Categoría eliminada");
