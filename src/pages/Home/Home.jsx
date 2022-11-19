@@ -56,7 +56,7 @@ export default function Home() {
               <div className="item_content">
                 <p>{c.category || "Sin nombre"}</p>
               </div>
-              <img src={c.banner || getRandomBanner()} alt="Banner" />
+              <img src={c.bannerUrl || getRandomBanner()} alt="Banner" />
             </div>
           ))}
         </div>

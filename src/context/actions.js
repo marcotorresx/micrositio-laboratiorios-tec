@@ -6,7 +6,12 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { db, storage } from "firebase.js";
 import toast from "react-hot-toast";
 import shortid from "shortid";
@@ -27,6 +32,7 @@ export async function addCategory(
   name,
   userAccess,
   bannerUrl,
+  bannerPath,
   categories,
   setCategories
 ) {
@@ -37,6 +43,7 @@ export async function addCategory(
       category: name,
       userAccess,
       bannerUrl,
+      bannerPath,
     };
     await setDoc(categoryRef, category);
     setCategories([...categories, category]);
@@ -51,16 +58,26 @@ export async function updateCategory(
   categoryId,
   name,
   userAccess,
+  bannerUrl,
+  bannerPath,
   categories,
   setCategories
 ) {
   try {
+    const updatedCategory = {
+      category: name,
+      userAccess,
+      bannerUrl,
+      bannerPath,
+    };
     const categoryRef = doc(db, "categories", categoryId);
-    await updateDoc(categoryRef, { category: name, userAccess });
+    await updateDoc(categoryRef, updatedCategory);
 
     const filteredCategories = categories.filter((c) => c.id !== categoryId);
-    const updatedCategory = { id: categoryId, category: name, userAccess };
-    setCategories([...filteredCategories, updatedCategory]);
+    setCategories([
+      ...filteredCategories,
+      { id: categoryId, ...updatedCategory },
+    ]);
   } catch (error) {
     console.log("EDIT CATEGORY ERROR:", error);
     toast.error("Hubo un error editando la cateogoría.");
@@ -138,11 +155,23 @@ export async function deleteResource(categoryId, resourceId) {
 // Upload Banner
 export async function uploadBanner(file) {
   try {
-    const imageRef = `banners/${shortid.generate()}_${file.name}`;
-    await uploadBytes(ref(storage, imageRef), file);
-    return imageRef;
+    const bannerPath = `banners/${shortid.generate()}_${file.name}`;
+    const res = await uploadBytes(ref(storage, bannerPath), file);
+    const bannerUrl = await getDownloadURL(res.ref);
+    return { bannerUrl, bannerPath };
   } catch (error) {
     console.log("UPLOAD BANNER ERROR:", error);
     toast.error("Hubo un error subiendo la imágen");
+  }
+}
+
+// Delete Banner
+export async function deleteBanner(bannerPath) {
+  try {
+    const fileRef = ref(storage, bannerPath);
+    await deleteObject(fileRef);
+  } catch (error) {
+    console.log("DELETE BANNER ERROR:", error);
+    toast.error("Hubo un error actualizando la imágen");
   }
 }

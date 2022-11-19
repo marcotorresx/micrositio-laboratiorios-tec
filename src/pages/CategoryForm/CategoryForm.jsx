@@ -1,5 +1,10 @@
 import React from "react";
-import { addCategory, updateCategory, uploadBanner } from "context/actions";
+import {
+  addCategory,
+  deleteBanner,
+  updateCategory,
+  uploadBanner,
+} from "context/actions";
 import toast from "react-hot-toast";
 import "./CategoryForm.sass";
 import { useAppContext } from "context/Context";
@@ -36,15 +41,19 @@ export default function CategoryForm() {
     }
 
     // Upload banner
+    let bannerUrl = null;
     let bannerPath = null;
     if (file) {
-      bannerPath = await uploadBanner(file);
+      const res = await uploadBanner(file);
+      bannerUrl = res.bannerUrl;
+      bannerPath = res.bannerPath;
     }
 
     // Make request
     addCategory(
       categoryName,
       userAccess,
+      bannerUrl,
       bannerPath,
       categories,
       setCategories
@@ -70,11 +79,22 @@ export default function CategoryForm() {
       return;
     }
 
+    let bannerUrl = category.bannerUrl;
+    let bannerPath = category.bannerPath;
+    if (file) {
+      await deleteBanner(category.bannerPath);
+      const res = await uploadBanner(file);
+      bannerUrl = res.bannerUrl;
+      bannerPath = res.bannerPath;
+    }
+
     // Make request
     updateCategory(
       category.id,
       categoryName,
       userAccess,
+      bannerUrl,
+      bannerPath,
       categories,
       setCategories
     );
@@ -83,11 +103,12 @@ export default function CategoryForm() {
     setCategoryName("");
     setUserAccess("student");
     toast.success("Categoría actualizada");
+    navigate("/private/categories");
   }
 
   function getUrlBanner() {
     if (file) setImgUrl(URL.createObjectURL(file));
-    else if (category?.bannerPath) setImgUrl(category?.bannerPath);
+    else if (category?.bannerUrl) setImgUrl(category?.bannerUrl);
     else setImgUrl(null);
   }
 
