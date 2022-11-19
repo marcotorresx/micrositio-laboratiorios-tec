@@ -6,7 +6,10 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "firebase.js";
+import { ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "firebase.js";
+import toast from "react-hot-toast";
+import shortid from "shortid";
 
 // Get categories
 export async function getCategories() {
@@ -15,24 +18,31 @@ export async function getCategories() {
     return res?.docs?.map((doc) => doc.data());
   } catch (error) {
     console.log("GET CATEGORIES ERROR:", error);
-    alert("Hubo un error obteniendo las categorías");
+    toast.error("Hubo un error obteniendo las categorías");
   }
 }
 
 // Add category
-export async function addCategory(name, userAccess, categories, setCategories) {
+export async function addCategory(
+  name,
+  userAccess,
+  bannerUrl,
+  categories,
+  setCategories
+) {
   try {
     const categoryRef = doc(collection(db, "categories"));
     const category = {
       id: categoryRef.id,
       category: name,
       userAccess,
+      bannerUrl,
     };
     await setDoc(categoryRef, category);
     setCategories([...categories, category]);
   } catch (error) {
     console.log("ADD CATEGORY ERROR:", error);
-    alert("Hubo un error creando la nueva cateogoría.");
+    toast.error("Hubo un error creando la nueva cateogoría.");
   }
 }
 
@@ -53,7 +63,7 @@ export async function updateCategory(
     setCategories([...filteredCategories, updatedCategory]);
   } catch (error) {
     console.log("EDIT CATEGORY ERROR:", error);
-    alert("Hubo un error editando la cateogoría.");
+    toast.error("Hubo un error editando la cateogoría.");
   }
 }
 
@@ -63,7 +73,7 @@ export async function deleteCategory(id) {
     await deleteDoc(doc(db, "categories", id));
   } catch (error) {
     console.log("DELETE CATEGORY ERROR:", error);
-    alert("Hubo un error eliminando la cateogoría.");
+    toast.error("Hubo un error eliminando la cateogoría.");
   }
 }
 
@@ -75,7 +85,7 @@ export async function getResources(categoryId) {
     return res?.docs?.map((doc) => doc.data());
   } catch (error) {
     console.log("GET RESOURCES ERROR:", error);
-    alert("Hubo un error obteniendo los recursos.");
+    toast.error("Hubo un error obteniendo los recursos.");
   }
 }
 
@@ -87,7 +97,7 @@ export async function addResource(categoryId, resource) {
     await setDoc(resourceRef, { ...resource, id: resourceRef.id });
   } catch (error) {
     console.log("ADD RESOURCE ERROR:", error);
-    alert("Hubo un error agregando el nuevo recurso.");
+    toast.error("Hubo un error agregando el nuevo recurso.");
   }
 }
 
@@ -104,7 +114,7 @@ export async function updateResource(categoryId, resource) {
     await updateDoc(resourceRef, resource);
   } catch (error) {
     console.log("UPDATE RESOURCE ERROR:", error);
-    alert("Hubo un error actualizando el recurso.");
+    toast.error("Hubo un error actualizando el recurso.");
   }
 }
 
@@ -121,6 +131,18 @@ export async function deleteResource(categoryId, resourceId) {
     await deleteDoc(resourceRef);
   } catch (error) {
     console.log("UPDATE RESOURCE ERROR:", error);
-    alert("Hubo un error actualizando el recurso.");
+    toast.error("Hubo un error actualizando el recurso.");
+  }
+}
+
+// Upload Banner
+export async function uploadBanner(file) {
+  try {
+    const imageRef = `banners/${shortid.generate()}_${file.name}`;
+    await uploadBytes(ref(storage, imageRef), file);
+    return imageRef;
+  } catch (error) {
+    console.log("UPLOAD BANNER ERROR:", error);
+    toast.error("Hubo un error subiendo la imágen");
   }
 }
